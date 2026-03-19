@@ -38,10 +38,10 @@ export default function ParticipantRow({
           onChange={(e) => onChange(index, "name", e.target.value)}
           className={`
             w-full px-3 py-2.5 text-[9px] font-['Press_Start_2P']
-            bg-[#130A24] text-[#F8F8FF] placeholder-[#4A2080]
+            bg-[#1E1040] text-[#F8F8FF] placeholder-[#6B5A9E]
             border-2 outline-none tracking-wider uppercase
             transition-colors duration-150
-            ${error?.name ? "border-[#FF3366]" : "border-[#4A2080] focus:border-[#FF007F]"}
+            ${error?.name ? "border-[#FF3366]" : "border-[#6B5A9E] focus:border-[#FF007F]"}
           `}
         />
         {error?.name && (
@@ -58,10 +58,10 @@ export default function ParticipantRow({
           onChange={(e) => onChange(index, "email", e.target.value)}
           className={`
             w-full px-3 py-2.5 text-[9px] font-['Press_Start_2P']
-            bg-[#130A24] text-[#F8F8FF] placeholder-[#4A2080]
+            bg-[#1E1040] text-[#F8F8FF] placeholder-[#6B5A9E]
             border-2 outline-none tracking-wider
             transition-colors duration-150
-            ${error?.email ? "border-[#FF3366]" : "border-[#4A2080] focus:border-[#00E5FF]"}
+            ${error?.email ? "border-[#FF3366]" : "border-[#6B5A9E] focus:border-[#00E5FF]"}
           `}
         />
         {error?.email && (

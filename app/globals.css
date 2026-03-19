@@ -19,7 +19,7 @@ body {
 }
 
 body {
-  background-color: #0D0D1A;
+  background-color: #1A1530;
   color: #F8F8FF;
   font-family: "Press Start 2P", monospace;
   image-rendering: pixelated;
@@ -46,7 +46,7 @@ body::before {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D0D1A;
+  background: #1A1530;
 }
 ::-webkit-scrollbar-thumb {
   background: #3D1F6E;
@@ -91,6 +91,52 @@ body::before {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
+}
+
+/* ── Arcade background animations ── */
+
+/* Stars / dots twinkling */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.6; }
+}
+
+/* Pac-dots drifting down */
+@keyframes driftDown {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(calc(100vh + 20px)); opacity: 0; }
+}
+
+/* Side ghosts floating & fading */
+@keyframes ghostDrift {
+  0%   { transform: translateY(0) translateX(0); opacity: 0.08; }
+  25%  { opacity: 0.18; }
+  50%  { transform: translateY(-20px) translateX(6px); opacity: 0.22; }
+  75%  { opacity: 0.12; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.08; }
+}
+
+.arcade-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #FF007F;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+}
+
+.arcade-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #FFD700;
+  animation: driftDown var(--dur, 12s) linear infinite var(--delay, 0s);
+}
+
+.arcade-ghost {
+  animation: ghostDrift var(--dur, 6s) ease-in-out infinite var(--delay, 0s);
 }
 
 /* Pixel border utility */

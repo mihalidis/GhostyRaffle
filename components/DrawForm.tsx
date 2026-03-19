@@ -131,9 +131,9 @@ export default function DrawForm({ ghostColor }: { ghostColor: string }) {
   const isLoading = status === "loading";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       {/* Participant rows */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         {/* Header labels */}
         <div className="flex gap-2 sm:gap-3 ml-9 mr-10">
           <span className="flex-1 text-[7px] font-['Press_Start_2P'] text-[#7B6FA0] uppercase tracking-widest">
@@ -164,14 +164,14 @@ export default function DrawForm({ ghostColor }: { ghostColor: string }) {
           variant="ghost"
           size="sm"
           onClick={handleAdd}
-          className="self-start flex items-center gap-2"
+          className="w-full flex items-center justify-center gap-2"
         >
           <Plus size={10} />
           ADD PLAYER
         </PixelButton>
       )}
 
-      <div className="text-[7px] font-['Press_Start_2P'] text-[#4A2080]">
+      <div className="text-[7px] font-['Press_Start_2P'] text-[#B8A9D9]">
         {participants.length} / {MAX} PLAYERS
       </div>
 
@@ -205,7 +205,7 @@ export default function DrawForm({ ghostColor }: { ghostColor: string }) {
               </p>
             )}
           </div>
-          <p className="text-[7px] font-['Press_Start_2P'] text-[#4A2080] text-center leading-loose">
+          <p className="text-[7px] font-['Press_Start_2P'] text-[#B8A9D9] text-center leading-loose">
             NO MATCHES WERE STORED.
             <br />
             THE GHOSTS KNOW. NO ONE ELSE DOES.
@@ -234,14 +234,14 @@ export default function DrawForm({ ghostColor }: { ghostColor: string }) {
       )}
 
       {/* Action buttons */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col gap-3">
         {status !== "success" ? (
           <PixelButton
             type="submit"
             variant="primary"
             size="lg"
             disabled={isLoading}
-            className="flex items-center gap-3"
+            className="w-full flex items-center justify-center gap-3"
           >
             {isLoading ? (
               <RefreshCw size={12} className="animate-spin" />
@@ -256,7 +256,7 @@ export default function DrawForm({ ghostColor }: { ghostColor: string }) {
             variant="secondary"
             size="lg"
             onClick={handleReset}
-            className="flex items-center gap-3"
+            className="w-full flex items-center justify-center gap-3"
           >
             <RefreshCw size={12} />
             NEW DRAW

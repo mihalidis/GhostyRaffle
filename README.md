@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 👻 GhostyRaffle
+
+A pixel-art secret gift exchange app where **no one — not even the host — can see who got matched with whom**.
+
+🔗 **Live:** [GhostyRaffle](https://ghosty-raffle.vercel.app/)
+
+![GhostyRaffle Screenshot](https://i.ibb.co/sdkJsmJB/ghosty-Raffle.png)
+
+---
+
+## What is it?
+
+GhostyRaffle is a stateless, privacy-focused secret Santa / gift exchange tool. Add your participants, hit **START DRAW**, and everyone receives a secret email with their match. No data is ever stored — matches exist only in memory during execution.
+
+## Features
+
+- **Completely Private** — matches are never saved to any database or log
+- **Cryptographically Secure** — uses Fisher-Yates shuffle with CSPRNG
+- **Retro 8-bit Aesthetic** — pixel art ghosts, Press Start 2P font, arcade animations
+- **Email Delivery** — each participant gets a styled pixel-art email via Resend
+- **Rate Limited** — built-in protection against abuse
+- **Responsive** — works on desktop and mobile
+
+## How It Works
+
+1. Add participants (min 3, max 50)
+2. Hit **START DRAW**
+3. Each player gets a secret email with their match
+4. No one sees the full list — not even you
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS + Press Start 2P font
+- **Email:** Resend
+- **Language:** TypeScript
+- **Randomization:** Web Crypto API (CSPRNG)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Add your RESEND_API_KEY and RESEND_FROM_EMAIL
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `RESEND_API_KEY` | Your Resend API key |
+| `RESEND_FROM_EMAIL` | Verified sender email address |
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+The easiest way to deploy is with [Vercel](https://vercel.com):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Make sure to add `RESEND_API_KEY` and `RESEND_FROM_EMAIL` to your environment variables in the Vercel dashboard.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<p align="center">
+  <sub>Built with Next.js & Resend — your data is never saved 🔒</sub>
+</p>
