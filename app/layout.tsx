@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import "./globals.css";
 import ArcadeBackground from "@/components/ArcadeBackground";
 
@@ -11,9 +12,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  await connection();
+
   return (
     <html lang="en" className="h-full">
       <body className="min-h-full flex flex-col antialiased">

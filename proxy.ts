@@ -1,64 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Content-Security-Policy middleware.
+ * Content-Security-Policy via Proxy (Next.js 16).
  *
- * A fresh cryptographic nonce is generated for every request.
- * Inline <script> and <style> tags must carry this nonce to execute —
- * everything else is blocked, defeating XSS even if an attacker injects markup.
+ * Nonce must be forwarded on the *request* headers too so the framework can
+ * stamp Next.js / React inline bootstrap scripts during SSR.
  *
- * The nonce is passed to the page via the `x-nonce` response header so
- * Next.js server components can read it and stamp it on inline scripts.
+ * @see https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
  */
 const isDev = process.env.NODE_ENV === "development";
 
 export function proxy(request: NextRequest) {
-  // 16 random bytes → 22-char base64url nonce
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
 
   const csp = [
-    // Only load resources from same origin by default
     `default-src 'self'`,
-
-    // Scripts: same-origin + nonce.
-    // Dev mode also needs 'unsafe-eval' — React uses eval() for callstack reconstruction.
-    // Never allowed in production.
-    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""}`,
-
-    // Styles: same-origin + Google Fonts + nonce for inline styles
-    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
-
-    // Fonts: same-origin + Google Fonts CDN
+    // strict-dynamic: scripts trusted via nonce may load further trusted scripts
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
+    // blob:: some Next / Turbopack client CSS loads via blob: URLs
+    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com blob:`,
     `font-src 'self' https://fonts.gstatic.com`,
-
-    // Images: same-origin + data URIs (used by pixel SVG favicon)
-    `img-src 'self' data:`,
-
-    // API calls: same-origin only (Resend is called server-side, never from browser)
+    `img-src 'self' data: blob:`,
     `connect-src 'self'`,
-
-    // Never allow <object>, <embed>, <applet>
     `object-src 'none'`,
-
-    // Disallow <base> tag hijacking
     `base-uri 'self'`,
-
-    // All form submissions must go to same origin
     `form-action 'self'`,
-
-    // Prevent this page from being framed anywhere (CSP version of X-Frame-Options)
     `frame-ancestors 'none'`,
-
-    // Force browsers to use HTTPS for all future requests for 1 year
     `upgrade-insecure-requests`,
   ].join("; ");
 
-  const response = NextResponse.next();
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
+  requestHeaders.set("Content-Security-Policy", csp);
 
-  // Set CSP header
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+
   response.headers.set("Content-Security-Policy", csp);
-
-  // Forward the nonce to server components via a custom header
   response.headers.set("x-nonce", nonce);
 
   return response;
@@ -66,11 +47,13 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Run on all routes EXCEPT:
-     * - Next.js internals (_next/static, _next/image)
-     * - favicon.ico, public assets
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    {
+      source:
+        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
   ],
 };

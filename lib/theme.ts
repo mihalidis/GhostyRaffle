@@ -20,6 +20,8 @@ export interface Theme {
   danger: string;
   success: string;
   ghostColor: string;
+  /** Tailwind text-* class for theme accent (no inline color — CSP) */
+  ghostText: string;
 }
 
 export const themes: Record<ThemeName, Theme> = {
@@ -43,6 +45,7 @@ export const themes: Record<ThemeName, Theme> = {
     danger: "bg-[#FF3366]",
     success: "bg-[#00FF88]",
     ghostColor: "#FF007F",
+    ghostText: "text-[#FF007F]",
   },
   winter: {
     name: "winter",
@@ -64,6 +67,7 @@ export const themes: Record<ThemeName, Theme> = {
     danger: "bg-[#FF5252]",
     success: "bg-[#69F0AE]",
     ghostColor: "#4FC3F7",
+    ghostText: "text-[#4FC3F7]",
   },
 };
 

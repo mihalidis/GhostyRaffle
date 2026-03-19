@@ -25,6 +25,23 @@ body {
   image-rendering: pixelated;
 }
 
+/* Crisp pixel SVGs — class only (CSP blocks style= on elements) */
+.pixel-art {
+  image-rendering: pixelated;
+}
+
+/* Home page decorative grid — was inline style */
+.page-bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    linear-gradient(#ff007f 1px, transparent 1px),
+    linear-gradient(90deg, #ff007f 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 /* Pixel scanline overlay */
 body::before {
   content: "";

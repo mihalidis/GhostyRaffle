@@ -5,25 +5,10 @@ import GhostMascot from "@/components/GhostMascot";
 export default function Home() {
   const themeName = detectTheme();
   const theme = themes[themeName];
-  const isWinter = themeName === "winter";
 
   return (
     <main className="flex-1 flex flex-col items-center px-4 py-6 sm:py-8">
-      {/* Background grid */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: "none",
-          opacity: 0.05,
-          backgroundImage:
-            "linear-gradient(#FF007F 1px, transparent 1px), linear-gradient(90deg, #FF007F 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
+      <div className="page-bg-grid" aria-hidden />
 
       <div className="relative w-full max-w-2xl flex flex-col gap-5">
         {/* Header — compact */}
@@ -36,8 +21,7 @@ export default function Home() {
 
           <div>
             <h1
-              className="text-xl sm:text-2xl font-['Press_Start_2P'] title-glitch cursor-blink"
-              style={{ color: theme.ghostColor }}
+              className={`text-xl sm:text-2xl font-['Press_Start_2P'] title-glitch cursor-blink ${theme.ghostText}`}
             >
               GhostyRaffle
             </h1>
@@ -49,8 +33,7 @@ export default function Home() {
 
         {/* How it works — larger text, better contrast */}
         <div
-          className="px-5 py-4 border-2 border-dashed bg-[#160D2A]"
-          style={{ borderColor: isWinter ? "#1A3A6E" : "#3D1F6E" }}
+          className={`px-5 py-4 border-2 border-dashed bg-[#160D2A] ${theme.surfaceBorder}`}
         >
           <div className="flex items-start gap-3">
             <span className="text-lg flex-shrink-0">👻</span>
@@ -66,7 +49,7 @@ export default function Home() {
                   "No one sees the full list — not even you",
                 ].map((step, i) => (
                   <li key={i} className="text-[8px] font-['Press_Start_2P'] text-[#B8A9D9] leading-relaxed">
-                    <span style={{ color: theme.ghostColor }}>{i + 1}.</span> {step}
+                    <span className={theme.ghostText}>{i + 1}.</span> {step}
                   </li>
                 ))}
               </ol>
@@ -75,10 +58,7 @@ export default function Home() {
         </div>
 
         {/* Main card */}
-        <section
-          className="pixel-border p-5 sm:p-6"
-          style={{ backgroundColor: "#1E1035" }}
-        >
+        <section className={`pixel-border p-5 sm:p-6 ${theme.surface}`}>
           <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-dashed border-[#2A1550]">
             <GhostMascot size={20} color={theme.ghostColor} animate={false} />
             <h2 className="text-[10px] font-['Press_Start_2P'] text-[#B8A9D9] uppercase tracking-wider">

@@ -60,18 +60,17 @@ export default function GhostMascot({
       ? "animate-[float_2s_ease-in-out_infinite]"
       : "";
 
+  const w = size;
+  const h = size * 0.9;
+
   return (
-    <div
-      className={`inline-block ${animClass}`}
-      style={{ width: size, height: size * 0.9, imageRendering: "pixelated" }}
-      aria-hidden="true"
-    >
+    <div className={`inline-block ${animClass}`} aria-hidden="true">
       <svg
+        className="pixel-art"
         viewBox={`0 0 ${12 * px} ${11 * px}`}
-        width={size}
-        height={size * 0.9}
+        width={w}
+        height={h}
         xmlns="http://www.w3.org/2000/svg"
-        style={{ imageRendering: "pixelated" }}
       >
         {ghostPixels.map((row, y) =>
           row.map((cell, x) => {
