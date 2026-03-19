@@ -2,44 +2,6 @@ import { detectTheme, themes } from "@/lib/theme";
 import DrawForm from "@/components/DrawForm";
 import GhostMascot from "@/components/GhostMascot";
 
-/* Arcade background stars — positioned randomly via inline styles */
-const STARS = [
-  { top: "8%",  left: "5%",  dur: "3s",  delay: "0s" },
-  { top: "15%", left: "12%", dur: "4s",  delay: "1.2s" },
-  { top: "25%", left: "3%",  dur: "2.5s", delay: "0.5s" },
-  { top: "40%", left: "8%",  dur: "3.5s", delay: "2s" },
-  { top: "55%", left: "6%",  dur: "4.5s", delay: "0.8s" },
-  { top: "70%", left: "10%", dur: "3s",  delay: "1.5s" },
-  { top: "85%", left: "4%",  dur: "2.8s", delay: "3s" },
-  { top: "12%", right: "6%", dur: "3.2s", delay: "0.3s" },
-  { top: "22%", right: "10%",dur: "4s",  delay: "2.5s" },
-  { top: "35%", right: "4%", dur: "2.5s", delay: "1s" },
-  { top: "50%", right: "8%", dur: "3.8s", delay: "0.7s" },
-  { top: "65%", right: "12%",dur: "3s",  delay: "2.2s" },
-  { top: "78%", right: "5%", dur: "4.2s", delay: "1.8s" },
-  { top: "90%", right: "9%", dur: "2.6s", delay: "0.4s" },
-];
-
-/* Pac-dots drifting down */
-const PACDOTS = [
-  { left: "7%",  dur: "14s", delay: "0s" },
-  { left: "15%", dur: "18s", delay: "3s" },
-  { left: "85%", dur: "16s", delay: "6s" },
-  { left: "92%", dur: "13s", delay: "1s" },
-  { left: "3%",  dur: "20s", delay: "8s" },
-  { left: "95%", dur: "15s", delay: "4s" },
-];
-
-/* Side ghosts: colour + position + animation timing */
-const SIDE_GHOSTS = [
-  { color: "#FF007F", top: "18%", left: "2%",  dur: "6s",  delay: "0s" },
-  { color: "#00E5FF", top: "50%", left: "3%",  dur: "7.5s", delay: "2s" },
-  { color: "#7B00FF", top: "78%", left: "1%",  dur: "5.5s", delay: "1s" },
-  { color: "#FFD700", top: "25%", right: "2%", dur: "8s",  delay: "1.5s" },
-  { color: "#FF007F", top: "60%", right: "3%", dur: "6.5s", delay: "3s" },
-  { color: "#00E5FF", top: "88%", right: "1%", dur: "7s",  delay: "0.5s" },
-];
-
 export default function Home() {
   const themeName = detectTheme();
   const theme = themes[themeName];
@@ -49,7 +11,7 @@ export default function Home() {
     <main className="flex-1 flex flex-col items-center px-4 py-6 sm:py-8">
       {/* Background grid */}
       <div
-        className="fixed inset-0 pointer-events-none opacity-[0.04]"
+        className="fixed inset-0 pointer-events-none opacity-5"
         style={{
           backgroundImage:
             "linear-gradient(#FF007F 1px, transparent 1px), linear-gradient(90deg, #FF007F 1px, transparent 1px)",
@@ -57,51 +19,59 @@ export default function Home() {
         }}
       />
 
-      {/* ── Arcade background elements ── */}
+      {/* ── Arcade background decorations ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        {/* Twinkling stars */}
-        {STARS.map((s, i) => {
-          const pos: Record<string, string> = { top: s.top };
-          if ("left" in s && s.left) pos.left = s.left;
-          if ("right" in s && s.right) pos.right = s.right;
-          return (
-            <div
-              key={`star-${i}`}
-              className="arcade-star"
-              style={{ ...pos, "--dur": s.dur, "--delay": s.delay } as React.CSSProperties}
-            />
-          );
-        })}
+        {/* Twinkling pink stars — scattered across screen */}
+        <div style={{ position: "absolute", top: "8%", left: "5%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3s ease-in-out infinite" }} />
+        <div style={{ position: "absolute", top: "20%", left: "15%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 4s ease-in-out infinite 1.2s" }} />
+        <div style={{ position: "absolute", top: "45%", left: "8%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3.5s ease-in-out infinite 2s" }} />
+        <div style={{ position: "absolute", top: "65%", left: "12%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 2.8s ease-in-out infinite 0.5s" }} />
+        <div style={{ position: "absolute", top: "85%", left: "4%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3.2s ease-in-out infinite 3s" }} />
+        <div style={{ position: "absolute", top: "12%", right: "6%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3.8s ease-in-out infinite 0.3s" }} />
+        <div style={{ position: "absolute", top: "35%", right: "10%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 2.5s ease-in-out infinite 1.5s" }} />
+        <div style={{ position: "absolute", top: "55%", right: "4%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 4.2s ease-in-out infinite 0.7s" }} />
+        <div style={{ position: "absolute", top: "75%", right: "8%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3s ease-in-out infinite 2.2s" }} />
+        <div style={{ position: "absolute", top: "92%", right: "14%", width: 3, height: 3, background: "#FF007F", animation: "twinkle 3.5s ease-in-out infinite 1s" }} />
 
-        {/* Pac-dots drifting down */}
-        {PACDOTS.map((d, i) => (
-          <div
-            key={`dot-${i}`}
-            className="arcade-dot"
-            style={{
-              left: d.left,
-              top: "-10px",
-              "--dur": d.dur,
-              "--delay": d.delay,
-            } as React.CSSProperties}
-          />
-        ))}
+        {/* Twinkling cyan stars */}
+        <div style={{ position: "absolute", top: "30%", left: "20%", width: 2, height: 2, background: "#00E5FF", animation: "twinkle 5s ease-in-out infinite 0.8s" }} />
+        <div style={{ position: "absolute", top: "70%", left: "18%", width: 2, height: 2, background: "#00E5FF", animation: "twinkle 4.5s ease-in-out infinite 2.5s" }} />
+        <div style={{ position: "absolute", top: "25%", right: "18%", width: 2, height: 2, background: "#00E5FF", animation: "twinkle 4s ease-in-out infinite 1.8s" }} />
+        <div style={{ position: "absolute", top: "60%", right: "20%", width: 2, height: 2, background: "#00E5FF", animation: "twinkle 5.5s ease-in-out infinite 3s" }} />
 
-        {/* Floating ghosts on sides */}
-        {SIDE_GHOSTS.map((g, i) => {
-          const gpos: Record<string, string> = { top: g.top, position: "absolute" };
-          if ("left" in g && g.left) gpos.left = g.left;
-          if ("right" in g && g.right) gpos.right = g.right;
-          return (
-            <div
-              key={`ghost-${i}`}
-              className="arcade-ghost"
-              style={{ ...gpos, "--dur": g.dur, "--delay": g.delay } as React.CSSProperties}
-            >
-              <GhostMascot size={20 + (i % 3) * 4} color={g.color} animate={false} />
-            </div>
-          );
-        })}
+        {/* Floating ghosts — left side */}
+        <div style={{ position: "absolute", top: "15%", left: "2%", animation: "ghostDrift 7s ease-in-out infinite" }}>
+          <GhostMascot size={22} color="#FF007F" animate={false} />
+        </div>
+        <div style={{ position: "absolute", top: "50%", left: "4%", animation: "ghostDrift 8s ease-in-out infinite 2.5s" }}>
+          <GhostMascot size={18} color="#00E5FF" animate={false} />
+        </div>
+        <div style={{ position: "absolute", top: "80%", left: "1%", animation: "ghostDrift 6s ease-in-out infinite 1s" }}>
+          <GhostMascot size={20} color="#7B00FF" animate={false} />
+        </div>
+
+        {/* Floating ghosts — right side */}
+        <div style={{ position: "absolute", top: "22%", right: "2%", animation: "ghostDrift 8.5s ease-in-out infinite 1.5s" }}>
+          <GhostMascot size={20} color="#FFD700" animate={false} />
+        </div>
+        <div style={{ position: "absolute", top: "58%", right: "3%", animation: "ghostDrift 7s ease-in-out infinite 3s" }}>
+          <GhostMascot size={22} color="#FF007F" animate={false} />
+        </div>
+        <div style={{ position: "absolute", top: "85%", right: "1%", animation: "ghostDrift 6.5s ease-in-out infinite 0.5s" }}>
+          <GhostMascot size={18} color="#00E5FF" animate={false} />
+        </div>
+
+        {/* Falling dots — drifting downward */}
+        <div style={{ position: "absolute", top: 0, left: "3%", width: 3, height: 3, borderRadius: "50%", background: "#FF007F", animation: "dotFall 8s linear infinite" }} />
+        <div style={{ position: "absolute", top: 0, left: "9%", width: 2, height: 2, borderRadius: "50%", background: "#FFD700", animation: "dotFall 11s linear infinite 2s" }} />
+        <div style={{ position: "absolute", top: 0, left: "16%", width: 3, height: 3, borderRadius: "50%", background: "#00E5FF", animation: "dotFall 9s linear infinite 4.5s" }} />
+        <div style={{ position: "absolute", top: 0, left: "22%", width: 2, height: 2, borderRadius: "50%", background: "#FF007F", animation: "dotFall 13s linear infinite 1s" }} />
+        <div style={{ position: "absolute", top: 0, right: "4%", width: 3, height: 3, borderRadius: "50%", background: "#FFD700", animation: "dotFall 10s linear infinite 3s" }} />
+        <div style={{ position: "absolute", top: 0, right: "11%", width: 2, height: 2, borderRadius: "50%", background: "#7B00FF", animation: "dotFall 12s linear infinite 5.5s" }} />
+        <div style={{ position: "absolute", top: 0, right: "18%", width: 3, height: 3, borderRadius: "50%", background: "#00E5FF", animation: "dotFall 9.5s linear infinite 7s" }} />
+        <div style={{ position: "absolute", top: 0, right: "24%", width: 2, height: 2, borderRadius: "50%", background: "#FFD700", animation: "dotFall 14s linear infinite 0.5s" }} />
+        <div style={{ position: "absolute", top: 0, left: "30%", width: 2, height: 2, borderRadius: "50%", background: "#FF007F", animation: "dotFall 11.5s linear infinite 6s" }} />
+        <div style={{ position: "absolute", top: 0, right: "30%", width: 2, height: 2, borderRadius: "50%", background: "#7B00FF", animation: "dotFall 10.5s linear infinite 8s" }} />
       </div>
 
       <div className="relative w-full max-w-2xl flex flex-col gap-5">
