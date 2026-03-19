@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ArcadeBackground from "@/components/ArcadeBackground";
 
 export const metadata: Metadata = {
   title: "GhostyRaffle — Stateless Secret Gift Exchange",
@@ -15,7 +16,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full">
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased">
+        <ArcadeBackground />
+        <div className="relative z-10 flex min-h-full min-w-0 flex-1 flex-col">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
